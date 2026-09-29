@@ -1,0 +1,37 @@
+services:
+  frontend:
+    build: .
+    container_name: know-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./server
+    container_name: know-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./server/.env
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: know
+      DB_USER: know
+      DB_PASSWORD: knowpass
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    container_name: know-db
+    environment:
+      POSTGRES_DB: know
+      POSTGRES_USER: know
+      POSTGRES_PASSWORD: knowpass
+    volumes:
+      - know-db-data:/var/lib/postgresql/data
+
+volumes:
+  know-db-data:
