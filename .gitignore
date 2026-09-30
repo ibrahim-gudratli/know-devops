@@ -28,3 +28,8 @@ server/.env
 
 .env.*
 !.env.development
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*

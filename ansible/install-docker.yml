@@ -1,0 +1,24 @@
+- name: Install Docker on kNow EC2
+  hosts: app
+  become: true
+
+  tasks:
+    - name: Install Docker
+      apt:
+        name:
+          - docker.io
+          - docker-compose-v2
+        state: present
+        update_cache: true
+
+    - name: Start and enable Docker
+      systemd:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Add ubuntu user to Docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: true

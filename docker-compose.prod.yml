@@ -1,17 +1,18 @@
 services:
   frontend:
-    build: .
+    build:
+      context: .
+      args:
+        VITE_API_URL: /api
     container_name: know-frontend
     ports:
-      - "5173:5173"
-    environment:
-      VITE_API_URL: ${VITE_API_URL}
+      - "80:80"
+    depends_on:
+      - backend
 
   backend:
     build: ./server
     container_name: know-backend
-    ports:
-      - "3000:3000"
     environment:
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
