@@ -9,6 +9,7 @@ services:
       - "80:80"
     depends_on:
       - backend
+    restart: unless-stopped
 
   backend:
     build: ./server
@@ -20,3 +21,4 @@ services:
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
+    restart: unless-stopped
