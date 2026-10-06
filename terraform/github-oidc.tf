@@ -73,3 +73,36 @@ resource "aws_iam_role_policy" "github_actions_ecr" {
     ]
   })
 }
+
+resource "aws_iam_role_policy" "github_actions_ssm" {
+  name = "know-github-actions-ssm"
+  role = aws_iam_role.github_actions.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Action = [
+          "ssm:SendCommand"
+        ]
+
+        Resource = [
+          aws_instance.know.arn,
+          "arn:aws:ssm:eu-north-1::document/AWS-RunShellScript"
+        ]
+      },
+      {
+        Effect = "Allow"
+
+        Action = [
+          "ssm:GetCommandInvocation"
+        ]
+
+        Resource = "*"
+      }
+    ]
+  })
+}
