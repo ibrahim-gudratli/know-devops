@@ -1,9 +1,6 @@
 services:
   frontend:
-    build:
-      context: .
-      args:
-        VITE_API_URL: /api
+    image: ${ECR_REGISTRY}/know-frontend:${IMAGE_TAG}
     container_name: know-frontend
     ports:
       - "80:80"
@@ -12,7 +9,7 @@ services:
     restart: unless-stopped
 
   backend:
-    build: ./server
+    image: ${ECR_REGISTRY}/know-backend:${IMAGE_TAG}
     container_name: know-backend
     environment:
       DB_HOST: ${DB_HOST}

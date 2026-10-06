@@ -29,6 +29,7 @@ resource "aws_instance" "know" {
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.know.id]
   key_name               = aws_key_pair.know.key_name
+  iam_instance_profile   = aws_iam_instance_profile.ec2.name
 
   tags = {
     Name    = "know-app"
