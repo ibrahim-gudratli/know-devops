@@ -37,8 +37,8 @@ jobs:
             --parameters "commands=[
               \"set -e\",
               \"cd /home/ubuntu/know-devops\",
-              \"git fetch origin main\",
-              \"git checkout --detach $IMAGE_TAG\",
+              \"sudo -u ubuntu git -C /home/ubuntu/know-devops fetch origin main\",
+              \"sudo -u ubuntu git -C /home/ubuntu/know-devops checkout --detach $IMAGE_TAG\",
               \"aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin $ECR_REGISTRY\",
               \"ECR_REGISTRY=$ECR_REGISTRY IMAGE_TAG=$IMAGE_TAG docker compose --env-file /home/ubuntu/.env.production -f docker-compose.prod.yml pull\",
               \"ECR_REGISTRY=$ECR_REGISTRY IMAGE_TAG=$IMAGE_TAG docker compose --env-file /home/ubuntu/.env.production -f docker-compose.prod.yml up -d\"
