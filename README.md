@@ -133,3 +133,30 @@ The application includes a local Docker Compose configuration in [`docker-compos
 ## Deployment status
 
 This repository documents an AWS deployment built as a DevOps portfolio project. Cloud resources may be stopped or destroyed when not in use to avoid ongoing costs.
+
+## Deployment and Monitoring Evidence
+
+The following screenshots demonstrate the automated deployment
+pipeline and monitoring configuration.
+
+### GitHub Actions CI/CD
+
+![GitHub Actions CI/CD](docs/screenshots/github-actions.png)
+
+GitHub Actions automatically builds, tests, and deploys the
+application to AWS using Amazon ECR and AWS Systems Manager.
+
+### CloudWatch Application Logs
+
+![CloudWatch Logs](docs/screenshots/cloudwatch-logs.png)
+
+Backend container logs are collected using the Docker `awslogs`
+logging driver and sent to Amazon CloudWatch.
+
+### CloudWatch CPU Monitoring
+
+![CloudWatch CPU Alarm](docs/screenshots/cloudwatch-alarm.png)
+
+A CloudWatch alarm monitors EC2 CPU utilization and uses
+Amazon SNS to send email notifications when CPU utilization
+exceeds 80%.
