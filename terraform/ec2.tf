@@ -7,22 +7,6 @@ resource "aws_key_pair" "know" {
   }
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"]
-}
-
 resource "aws_instance" "know" {
   ami                    = "ami-0769f265f707fecc8"
   instance_type          = "t3.micro"
@@ -30,6 +14,11 @@ resource "aws_instance" "know" {
   vpc_security_group_ids = [aws_security_group.know.id]
   key_name               = aws_key_pair.know.key_name
   iam_instance_profile   = aws_iam_instance_profile.ec2.name
+
+  root_block_device {
+    volume_size = 16
+    volume_type = "gp3"
+  }
 
   tags = {
     Name    = "know-app"
