@@ -31,6 +31,8 @@ kNow is a personal knowledge management application for capturing what you learn
 
 ## Architecture
 
+![kNow AWS Architecture](docs/architecture.png)
+
 The production environment runs in the AWS `eu-north-1` region.
 
 ```text
